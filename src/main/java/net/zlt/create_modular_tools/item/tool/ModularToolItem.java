@@ -55,6 +55,27 @@ public abstract class ModularToolItem extends Item implements DamageableItem, To
     }
 
 	@Override
+	public boolean isSuitableFor(ItemStack stack, BlockState state) {
+		if (isBroken(stack)) {
+			return false;
+		}
+
+		CompoundTag toolModulesNbt = ToolUtils.getToolModulesNbt(stack);
+		if (toolModulesNbt.isEmpty()) {
+			return false;
+		}
+
+		for (ToolModuleType toolModuleType : COMPATIBLE) {
+			ToolModuleItem toolModule = ToolModuleRegistry.get(toolModulesNbt.getCompound(toolModuleType.getTag()).getString(AllTagNames.TOOL_MODULE_ID));
+			if (toolModule != null && toolModule.isSuitableForWhenAttached(state)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity) {
         if (isBroken(stack)) {
             return false;
