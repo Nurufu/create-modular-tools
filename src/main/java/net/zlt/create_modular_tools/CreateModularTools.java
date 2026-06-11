@@ -1,7 +1,10 @@
 package net.zlt.create_modular_tools;
 
 import com.simibubi.create.Create;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+
 import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +26,7 @@ import net.zlt.create_modular_tools.item.mold.AllMoldItems;
 import net.zlt.create_modular_tools.loot.function.AllLootItemFunctionTypes;
 import net.zlt.create_modular_tools.mold.MoldRegistry;
 import net.zlt.create_modular_tools.ponder.AllPonderScenes;
-import net.zlt.create_modular_tools.ponder.PonderIndex;
+import net.zlt.create_modular_tools.ponder.ModularPonderPlugin;
 import net.zlt.create_modular_tools.recipe.AllRecipeTypes;
 import net.zlt.create_modular_tools.sound.AllSoundEvents;
 import net.zlt.create_modular_tools.tool.AllModularTools;
@@ -38,9 +41,11 @@ public class CreateModularTools implements ModInitializer {
     public static final String NAME = "Create: Modular Tools";
     public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
+	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(CreateModularTools.ID);
+
     @Override
     public void onInitialize() {
-        LOGGER.info("Create addon mod [{}] is loading alongside Create [{}]!", NAME, Create.VERSION);
+        LOGGER.info("Create addon mod [{}] is loading alongside Create [6 or something]!", NAME);
         LOGGER.info(EnvExecutor.unsafeRunForDist(
             () -> () -> "{} is accessing Porting Lib from the client!",
             () -> () -> "{} is accessing Porting Lib from the server!"
@@ -67,7 +72,7 @@ public class CreateModularTools implements ModInitializer {
         AllCriterionTriggers.init();
         AllLootItemFunctionTypes.init();
         AllPonderScenes.init();
-        PonderIndex.init();
+		PonderIndex.addPlugin(new ModularPonderPlugin());
 
         MoldRegistry.addRequired(AllModularTools.SWORD, AllToolModuleTypes.TOOL_HANDLE, AllToolModuleTypes.SWORD_BLADE);
         MoldRegistry.addCompatible(AllModularTools.SWORD, AllToolModuleTypes.SWORD_POMMEL, AllToolModuleTypes.SWORD_GUARD);

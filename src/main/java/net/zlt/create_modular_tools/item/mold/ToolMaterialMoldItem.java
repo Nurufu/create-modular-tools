@@ -1,7 +1,6 @@
 package net.zlt.create_modular_tools.item.mold;
 
 import com.google.common.collect.Maps;
-import com.simibubi.create.foundation.utility.Components;
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.gui.screens.Screen;
@@ -62,7 +61,7 @@ public class ToolMaterialMoldItem extends BlockItem {
             if (moldSlot.state() == ToolUtils.MoldSlotState.SOLID) {
                 ToolModuleItem toolModule = (ToolModuleItem) moldSlot.contents();
 
-                tooltipComponents.add(toolModuleType.getName().plainCopy().append(Component.literal(":")).append(CommonComponents.space()).append(toolModule == null ? Components.translatable("create_modular_tools.hint.mold.unknown") : toolModule.getDescription()).withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(toolModuleType.getName().plainCopy().append(Component.literal(":")).append(CommonComponents.space()).append(toolModule == null ? Component.translatable("create_modular_tools.hint.mold.unknown") : toolModule.getDescription()).withStyle(ChatFormatting.GRAY));
 
                 CompoundTag slotContentsTag = moldSlot.tag();
 
@@ -81,7 +80,7 @@ public class ToolMaterialMoldItem extends BlockItem {
                 }
             } else if (moldSlot.state() == ToolUtils.MoldSlotState.FLUID) {
                 Fluid fluid = (Fluid) moldSlot.contents();
-                tooltipComponents.add(toolModuleType.getName().plainCopy().append(Component.literal(":")).append(CommonComponents.space()).append(Components.translatable(fluid == null ? "create_modular_tools.hint.mold.unknown" : fluid.defaultFluidState().createLegacyBlock().getBlock().getDescriptionId())).withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(toolModuleType.getName().plainCopy().append(Component.literal(":")).append(CommonComponents.space()).append(Component.translatable(fluid == null ? "create_modular_tools.hint.mold.unknown" : fluid.defaultFluidState().createLegacyBlock().getBlock().getDescriptionId())).withStyle(ChatFormatting.GRAY));
 
                 ToolModuleItem toolModule = ToolModuleRecipeRegistry.get(toolModuleType, fluid);
                 if (toolModule != null) {
@@ -94,12 +93,12 @@ public class ToolMaterialMoldItem extends BlockItem {
                     }
                 }
             } else if (moldSlot.state() == ToolUtils.MoldSlotState.EMPTY) {
-                tooltipComponents.add(toolModuleType.getName().plainCopy().append(Component.literal(":")).append(CommonComponents.space()).append(Components.translatable("create_modular_tools.hint.mold.empty_slot")).withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(toolModuleType.getName().plainCopy().append(Component.literal(":")).append(CommonComponents.space()).append(Component.translatable("create_modular_tools.hint.mold.empty_slot")).withStyle(ChatFormatting.GRAY));
             }
         }
 
         if (isShiftDown && !resultFeatures.isEmpty()) {
-            tooltipComponents.add(Components.translatable("create_modular_tools.hint.mold.resulting_features").append(Components.literal(":")).withStyle(ChatFormatting.GRAY));
+            tooltipComponents.add(Component.translatable("create_modular_tools.hint.mold.resulting_features").append(Component.literal(":")).withStyle(ChatFormatting.GRAY));
 
             for (MutableComponent feature : resultFeatures) {
                 tooltipComponents.add(feature.withStyle(ChatFormatting.GRAY));

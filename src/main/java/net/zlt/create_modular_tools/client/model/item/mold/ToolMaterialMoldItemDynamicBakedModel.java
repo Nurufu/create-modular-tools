@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
+import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -32,14 +33,15 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class ToolMaterialMoldItemDynamicBakedModel implements BakedModel {
-    private static final RenderMaterial MATERIAL_CUTOUT_MIPPED = RendererAccess.INSTANCE.getRenderer().materialFinder().blendMode(BlendMode.CUTOUT_MIPPED).find();
+public abstract class ToolMaterialMoldItemDynamicBakedModel extends ForwardingBakedModel {
+    private static final RenderMaterial MATERIAL_CUTOUT_MIPPED = Objects.requireNonNull(RendererAccess.INSTANCE.getRenderer()).materialFinder().blendMode(BlendMode.CUTOUT_MIPPED).find();
 
     private final BakedModel BASE_SAND_MOLD_MODEL;
     private final BakedQuad INTERIOR_TOP_QUAD;

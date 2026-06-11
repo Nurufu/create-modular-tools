@@ -7,7 +7,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
-import com.simibubi.create.foundation.utility.Components;
+//import com.simibubi.create.foundation.utility.Components;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -47,7 +47,7 @@ public class ModularToolCuttingRecipe extends ProcessingRecipe<Container> implem
 
     @Override
     public Component getDescriptionForAssembly() {
-        return Components.translatable("create_modular_tools.recipe.assembly.modular_tool_cutting");
+        return Component.translatable("create_modular_tools.recipe.assembly.modular_tool_cutting");
     }
 
     @Override

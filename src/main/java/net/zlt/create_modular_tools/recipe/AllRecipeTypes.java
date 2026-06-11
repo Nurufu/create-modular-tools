@@ -3,7 +3,7 @@ package net.zlt.create_modular_tools.recipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,7 +35,7 @@ public enum AllRecipeTypes implements IRecipeTypeInfo {
     private final Supplier<RecipeType<?>> TYPE;
 
     AllRecipeTypes(ProcessingRecipeBuilder.ProcessingRecipeFactory<?> processingFactory) {
-        String id = Lang.asId(name());
+        String id = CreateLang.asId(name());
         ID = CreateModularTools.asResource(id);
         SERIALIZER_OBJECT = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ID, new ProcessingRecipeSerializer<>(processingFactory));
         TYPE_OBJECT = com.simibubi.create.AllRecipeTypes.simpleType(ID);

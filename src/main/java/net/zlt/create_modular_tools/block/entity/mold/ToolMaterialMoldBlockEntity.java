@@ -1,9 +1,9 @@
 package net.zlt.create_modular_tools.block.entity.mold;
 
 import com.google.common.collect.Maps;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
+//import com.simibubi.create.foundation.utility.Components;
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -76,7 +76,7 @@ public abstract class ToolMaterialMoldBlockEntity extends BlockEntity implements
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        Lang.builder(CreateModularTools.ID)
+        CreateLang.builder(CreateModularTools.ID)
             .translate("hint.mold.modular_tool_type")
             .add(CommonComponents.space())
             .add(getName().plainCopy())
@@ -93,11 +93,11 @@ public abstract class ToolMaterialMoldBlockEntity extends BlockEntity implements
             if (moldSlot.state() == ToolUtils.MoldSlotState.SOLID) {
                 ToolModuleItem toolModule = (ToolModuleItem) moldSlot.contents();
 
-                Lang.builder(CreateModularTools.ID)
+                CreateLang.builder(CreateModularTools.ID)
                     .add(toolModuleType.getName().plainCopy())
                     .text(":")
                     .space()
-                    .add(toolModule == null ? Components.translatable("create_modular_tools.hint.mold.unknown") : toolModule.getDescription().plainCopy())
+                    .add(toolModule == null ? Component.translatable("create_modular_tools.hint.mold.unknown") : toolModule.getDescription().plainCopy())
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip);
 
@@ -112,7 +112,7 @@ public abstract class ToolMaterialMoldBlockEntity extends BlockEntity implements
 
                     if (isPlayerSneaking) {
                         for (MutableComponent component : toolModule.getStatsDescription(slotContentsTag)) {
-                            Lang.builder(CreateModularTools.ID)
+                            CreateLang.builder(CreateModularTools.ID)
                                 .add(component)
                                 .forGoggles(tooltip);
                         }
@@ -120,11 +120,11 @@ public abstract class ToolMaterialMoldBlockEntity extends BlockEntity implements
                 }
             } else if (moldSlot.state() == ToolUtils.MoldSlotState.FLUID) {
                 Fluid fluid = (Fluid) moldSlot.contents();
-                Lang.builder(CreateModularTools.ID)
+                CreateLang.builder(CreateModularTools.ID)
                     .add(toolModuleType.getName().plainCopy())
                     .text(":")
                     .space()
-                    .add(Components.translatable(fluid == null ? "create_modular_tools.hint.mold.unknown" : fluid.defaultFluidState().createLegacyBlock().getBlock().getDescriptionId()))
+                    .add(Component.translatable(fluid == null ? "create_modular_tools.hint.mold.unknown" : fluid.defaultFluidState().createLegacyBlock().getBlock().getDescriptionId()))
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip);
 
@@ -134,14 +134,14 @@ public abstract class ToolMaterialMoldBlockEntity extends BlockEntity implements
 
                     if (isPlayerSneaking) {
                         for (MutableComponent component : toolModule.getStatsDescription(null)) {
-                            Lang.builder(CreateModularTools.ID)
+							CreateLang.builder(CreateModularTools.ID)
                                 .add(component)
                                 .forGoggles(tooltip);
                         }
                     }
                 }
             } else if (moldSlot.state() == ToolUtils.MoldSlotState.EMPTY) {
-                Lang.builder(CreateModularTools.ID)
+				CreateLang.builder(CreateModularTools.ID)
                     .add(toolModuleType.getName().plainCopy())
                     .text(":")
                     .space()
@@ -152,14 +152,14 @@ public abstract class ToolMaterialMoldBlockEntity extends BlockEntity implements
         }
 
         if (isPlayerSneaking && !resultFeatures.isEmpty()) {
-            Lang.builder(CreateModularTools.ID)
+			CreateLang.builder(CreateModularTools.ID)
                 .translate("hint.mold.resulting_features")
                 .text(":")
                 .style(ChatFormatting.GRAY)
                 .forGoggles(tooltip);
 
             for (MutableComponent feature : resultFeatures) {
-                Lang.builder(CreateModularTools.ID)
+				CreateLang.builder(CreateModularTools.ID)
                     .add(feature)
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip);
@@ -167,19 +167,19 @@ public abstract class ToolMaterialMoldBlockEntity extends BlockEntity implements
         }
 
         if (resultEnchantments == null) {
-            Lang.builder(CreateModularTools.ID)
+			CreateLang.builder(CreateModularTools.ID)
                 .translate("hint.mold.incompatible_enchantments")
                 .style(ChatFormatting.RED)
                 .forGoggles(tooltip);
         } else if (isPlayerSneaking && !resultEnchantments.isEmpty()) {
-            Lang.builder(CreateModularTools.ID)
+			CreateLang.builder(CreateModularTools.ID)
                 .translate("hint.mold.resulting_enchantments")
                 .text(":")
                 .style(ChatFormatting.GRAY)
                 .forGoggles(tooltip);
 
             resultEnchantments.forEach((enchantment, levels) ->
-                Lang.builder(CreateModularTools.ID)
+					CreateLang.builder(CreateModularTools.ID)
                     .add(CommonComponents.space().append(enchantment.getFullname(levels.get(0))))
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip)

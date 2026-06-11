@@ -5,7 +5,7 @@ import com.simibubi.create.compat.recipeViewerCommon.SequencedAssemblySubCategor
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
-import com.simibubi.create.foundation.utility.Components;
+//import com.simibubi.create.foundation.utility.Components;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -48,7 +48,7 @@ public class MoldFillingRecipe extends ProcessingRecipe<Container> implements IA
 
     @Override
     public Component getDescriptionForAssembly() {
-        return Components.translatable("create_modular_tools.recipe.assembly.mold_filling");
+        return Component.translatable("create_modular_tools.recipe.assembly.mold_filling");
     }
 
     @Override

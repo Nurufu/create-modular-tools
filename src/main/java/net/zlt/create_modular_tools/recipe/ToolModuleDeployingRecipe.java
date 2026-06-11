@@ -6,7 +6,7 @@ import com.simibubi.create.compat.recipeViewerCommon.SequencedAssemblySubCategor
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
-import com.simibubi.create.foundation.utility.Components;
+import com.simibubi.create.foundation.utility.DynamicComponent;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
@@ -92,7 +92,7 @@ public class ToolModuleDeployingRecipe extends ProcessingRecipe<Container> imple
 
     @Override
     public Component getDescriptionForAssembly() {
-        return Components.translatable("create_modular_tools.recipe.assembly.tool_module_deploying");
+        return Component.translatable("create_modular_tools.recipe.assembly.tool_module_deploying");
     }
 
     @Override

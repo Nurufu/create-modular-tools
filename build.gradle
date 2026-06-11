@@ -24,6 +24,7 @@ repositories {
 	maven { url = "https://maven.parchmentmc.org" } // Parchment mappings
 	maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
 	maven { url = "https://api.modrinth.com/maven" } // LazyDFU
+	maven { url = "https://maven.createmod.net" }
 	maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
 	maven { url = "https://mvn.devos.one/snapshots/" } // Create, Porting Lib, Forge Tags, Milk Lib, Registrate
 	maven { url = "https://mvn.devos.one/releases/" } // Porting Lib Releases
@@ -43,18 +44,22 @@ configurations.configureEach {
 dependencies {
 	// Setup
 	minecraft("com.mojang:minecraft:${minecraft_version}")
-	mappings(loom.layered {
-		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${qm_version}:intermediary-v2")
-		it.parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
-		it.officialMojangMappings { nameSyntheticMembers = false }
-	})
+//	mappings loom.layered {
+//		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${qm_version}:intermediary-v2")
+//		it.parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+//		it.officialMojangMappings { nameSyntheticMembers = false }
+//	}
+	mappings loom.layered() {
+		officialMojangMappings{ nameSyntheticMembers = false }
+		parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+	}
 	modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
 	// dependencies
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
 
 	// Create - dependencies are added transitively
-	modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${create_version}")
+	modImplementation("com.simibubi.create:create-fabric:${create_version}")
 
 	// Development QOL
 	modLocalRuntime("maven.modrinth:lazydfu:${lazydfu_version}")

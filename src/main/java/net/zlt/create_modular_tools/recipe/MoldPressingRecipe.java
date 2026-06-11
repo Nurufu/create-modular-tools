@@ -7,7 +7,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
-import com.simibubi.create.foundation.utility.Components;
+//import com.simibubi.create.foundation.utility.Components;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -117,7 +117,7 @@ public class MoldPressingRecipe extends ProcessingRecipe<Container> implements I
     @Override
     @Environment(EnvType.CLIENT)
     public Component getDescriptionForAssembly() {
-        return Components.translatable("create_modular_tools.recipe.assembly.mold_pressing");
+        return Component.translatable("create_modular_tools.recipe.assembly.mold_pressing");
     }
 
     @Override

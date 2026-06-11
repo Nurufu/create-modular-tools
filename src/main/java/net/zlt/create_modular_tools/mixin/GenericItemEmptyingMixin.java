@@ -1,7 +1,7 @@
 package net.zlt.create_modular_tools.mixin;
 
 import com.simibubi.create.content.fluids.transfer.GenericItemEmptying;
-import com.simibubi.create.foundation.utility.Pair;
+import net.createmod.catnip.data.Pair;
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
