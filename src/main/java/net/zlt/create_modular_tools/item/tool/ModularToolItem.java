@@ -139,6 +139,10 @@ public abstract class ModularToolItem extends Item implements DamageableItem, To
             return 1.0f;
         }
 
+		if(!isSuitableFor(stack,state)){
+			return 1.0f;
+		}
+
         CompoundTag toolModulesNbt = ToolUtils.getToolModulesNbt(stack);
         if (toolModulesNbt.isEmpty()) {
             return 1.0f;

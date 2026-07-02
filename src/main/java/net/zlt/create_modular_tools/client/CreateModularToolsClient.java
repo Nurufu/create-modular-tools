@@ -1,5 +1,6 @@
 package net.zlt.create_modular_tools.client;
 
+import net.createmod.ponder.foundation.PonderIndex;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -58,6 +59,7 @@ import net.zlt.create_modular_tools.fluid.AllFluids;
 import net.zlt.create_modular_tools.item.AllItems;
 import net.zlt.create_modular_tools.item.tool.ModularToolItem;
 import net.zlt.create_modular_tools.item.tool.module.ToolModuleItem;
+import net.zlt.create_modular_tools.ponder.ModularPonderPlugin;
 import net.zlt.create_modular_tools.tool.AllModularTools;
 import net.zlt.create_modular_tools.tool.ToolUtils;
 import net.zlt.create_modular_tools.tool.module.AllToolModuleTypes;
@@ -76,6 +78,8 @@ public class CreateModularToolsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ResourceManagerHelper.registerBuiltinResourcePack(CreateModularTools.asResource("hindu_arabic_enchantments"), FabricLoader.getInstance().getModContainer(CreateModularTools.ID).orElseThrow(() -> new IllegalStateException("Create: Modular Tools' ModContainer couldn't be found!")), Component.translatable("create_modular_tools.resource_pack.hindu_arabic_enchantments"), ResourcePackActivationType.NORMAL);
+
+		PonderIndex.addPlugin(new ModularPonderPlugin());
 
         BuiltinItemRendererRegistry.INSTANCE.register(AllItems.MODULAR_SWORD, new ModularToolRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(AllItems.MODULAR_SHOVEL, new ModularToolRenderer());

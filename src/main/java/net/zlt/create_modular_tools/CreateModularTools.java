@@ -72,7 +72,6 @@ public class CreateModularTools implements ModInitializer {
         AllCriterionTriggers.init();
         AllLootItemFunctionTypes.init();
         AllPonderScenes.init();
-		PonderIndex.addPlugin(new ModularPonderPlugin());
 
         MoldRegistry.addRequired(AllModularTools.SWORD, AllToolModuleTypes.TOOL_HANDLE, AllToolModuleTypes.SWORD_BLADE);
         MoldRegistry.addCompatible(AllModularTools.SWORD, AllToolModuleTypes.SWORD_POMMEL, AllToolModuleTypes.SWORD_GUARD);
