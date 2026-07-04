@@ -1,6 +1,9 @@
 package net.zlt.create_modular_tools.item.tool;
 
 //import com.simibubi.create.foundation.utility.Components;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+
 import io.github.fabricators_of_create.porting_lib.item.DamageableItem;
 import io.github.fabricators_of_create.porting_lib.tool.ToolAction;
 import io.github.fabricators_of_create.porting_lib.tool.addons.ToolActionItem;
@@ -13,9 +16,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-		import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-		import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -250,6 +257,40 @@ public abstract class ModularToolItem extends Item implements DamageableItem, To
     public boolean canBeDepleted() {
         return true;
     }
+
+	@Override
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
+		if (slot != EquipmentSlot.MAINHAND || isBroken(stack)) {
+			return super.getAttributeModifiers(stack, slot);
+		}
+
+		CompoundTag toolModulesNbt = ToolUtils.getToolModulesNbt(stack);
+		if (toolModulesNbt.isEmpty()) {
+			return super.getAttributeModifiers(stack, slot);
+		}
+
+		float attackDamage = 0.0f;
+		float attackSpeed = 0.0f;
+
+		for (ToolModuleType toolModuleType : COMPATIBLE) {
+			ToolModuleItem toolModule = ToolModuleRegistry.get(toolModulesNbt.getCompound(toolModuleType.getTag()).getString(AllTagNames.TOOL_MODULE_ID));
+			if (toolModule != null) {
+				attackDamage += toolModule.getAttackDamageWhenAttached();
+				attackSpeed += toolModule.getAttackSpeedWhenAttached();
+			}
+		}
+
+		ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+		builder.put(
+				Attributes.ATTACK_DAMAGE,
+				new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamage, AttributeModifier.Operation.ADDITION)
+		);
+		builder.put(
+				Attributes.ATTACK_SPEED,
+				new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeed, AttributeModifier.Operation.ADDITION)
+		);
+		return builder.build();
+	}
 
     @Override
     public int getBarWidth(ItemStack stack) {
